@@ -9,25 +9,38 @@
     <title>Document</title>
 </head>
 <body id="martin-body">
-    <div id="exempelkort">
-        exempelkort
-    </div>
-    <div id="exempelkort">
-        exempelkort
-    </div>
     <script>
+
+        async function getLukeSkywalker () {
+            let luke = await fetch('https://swapi.dev/api/people/1/?format=json')
+            let luke2 = await luke.json()
+            console.log(luke2.name)
+            // return 
+
+            let nr2 = await fetch('https://swapi.dev/api/people/2/?format=json')
+            let nr2json = await nr2.json()
+
+
         let poäng = 0
 
-        let kort1 = 'blomma'
-        let kort2 = 'blomma2'
+        let kort1 = luke2.name
+        let kort2 = luke2.name
+        let kort3 = nr2json.name
+        let kort4 = nr2json.name
 
-        let allaKort = [kort1, kort2]
+        let allaKort = [kort1, kort2, kort3, kort4]
         let allaHtmlKort = []
+        let uppvändaKort = []
 
-        document.getElementById("exempelkort").addEventListener("click", handleCardClick)
-
-        function handleCardClick () {
-            console.log("klick fungerar")
+        function handleCardClick (event) {
+            // console.log('event.target', event.target.innerText)
+            uppvändaKort.push(event.target.innerText)
+            console.log('uppvändaKort', uppvändaKort)
+            // console.log('event.target.innerText', event.target.innerText)
+            if (uppvändaKort[0] === uppvändaKort[1]){
+                poäng ++
+                console.log('poäng', poäng)
+            }
         }
 
         function skapaHtmlelementAvKort (motiv) {
@@ -39,7 +52,8 @@
 
         for (let index = 0; index < allaKort.length; index++) {
             let htmlKort = skapaHtmlelementAvKort(allaKort[index])
-            console.log(htmlKort)
+            console.log('htmlKort', htmlKort)
+            htmlKort.addEventListener("click", handleCardClick)
             allaHtmlKort.push(htmlKort)
         }
 
@@ -47,7 +61,9 @@
         for (let index = 0; index < allaHtmlKort.length; index++) {
             document.getElementById("martin-body").appendChild(allaHtmlKort[index])
         }
+    }
 
+    getLukeSkywalker ()
     </script>
 </body>
 </html>
