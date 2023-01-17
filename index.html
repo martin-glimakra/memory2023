@@ -1,0 +1,53 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="martin-body">
+    <div id="exempelkort">
+        exempelkort
+    </div>
+    <div id="exempelkort">
+        exempelkort
+    </div>
+    <script>
+        let poäng = 0
+
+        let kort1 = 'blomma'
+        let kort2 = 'blomma2'
+
+        let allaKort = [kort1, kort2]
+        let allaHtmlKort = []
+
+        document.getElementById("exempelkort").addEventListener("click", handleCardClick)
+
+        function handleCardClick () {
+            console.log("klick fungerar")
+        }
+
+        function skapaHtmlelementAvKort (motiv) {
+            let kort = document.createElement("div")
+            kort.textContent = motiv
+
+            return kort
+        }
+
+        for (let index = 0; index < allaKort.length; index++) {
+            let htmlKort = skapaHtmlelementAvKort(allaKort[index])
+            console.log(htmlKort)
+            allaHtmlKort.push(htmlKort)
+        }
+
+        console.log('allaHtmlKort', allaHtmlKort)
+        for (let index = 0; index < allaHtmlKort.length; index++) {
+            document.getElementById("martin-body").appendChild(allaHtmlKort[index])
+        }
+
+    </script>
+</body>
+</html>
