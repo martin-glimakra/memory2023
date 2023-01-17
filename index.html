@@ -1,69 +1,65 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body id="martin-body">
     <script>
-
-        async function getLukeSkywalker () {
+        async function getLukeSkywalker() {
             let luke = await fetch('https://swapi.dev/api/people/1/?format=json')
             let luke2 = await luke.json()
             console.log(luke2.name)
-            // return 
 
             let nr2 = await fetch('https://swapi.dev/api/people/2/?format=json')
             let nr2json = await nr2.json()
 
+            let poäng = 0
 
-        let poäng = 0
+            let kort1 = luke2.name
+            let kort2 = luke2.name
+            let kort3 = nr2json.name
+            let kort4 = nr2json.name
 
-        let kort1 = luke2.name
-        let kort2 = luke2.name
-        let kort3 = nr2json.name
-        let kort4 = nr2json.name
+            let allaKort = [kort1, kort2, kort3, kort4]
+            let allaHtmlKort = []
+            let uppvändaKort = []
 
-        let allaKort = [kort1, kort2, kort3, kort4]
-        let allaHtmlKort = []
-        let uppvändaKort = []
+            function handleCardClick(event) {
+                uppvändaKort.push(event.target.innerText)
+                console.log('uppvändaKort', uppvändaKort)
+                if (uppvändaKort[0] === uppvändaKort[1]) {
+                    poäng++
+                    console.log('poäng', poäng)
+                }
+            }
 
-        function handleCardClick (event) {
-            // console.log('event.target', event.target.innerText)
-            uppvändaKort.push(event.target.innerText)
-            console.log('uppvändaKort', uppvändaKort)
-            // console.log('event.target.innerText', event.target.innerText)
-            if (uppvändaKort[0] === uppvändaKort[1]){
-                poäng ++
-                console.log('poäng', poäng)
+            function skapaHtmlelementAvKort(motiv) {
+                let kort = document.createElement("div")
+                kort.textContent = motiv
+
+                return kort
+            }
+
+            for (let index = 0; index < allaKort.length; index++) {
+                let htmlKort = skapaHtmlelementAvKort(allaKort[index])
+                console.log('htmlKort', htmlKort)
+                htmlKort.addEventListener("click", handleCardClick)
+                allaHtmlKort.push(htmlKort)
+            }
+
+            console.log('allaHtmlKort', allaHtmlKort)
+            for (let index = 0; index < allaHtmlKort.length; index++) {
+                document.getElementById("martin-body").appendChild(allaHtmlKort[index])
             }
         }
 
-        function skapaHtmlelementAvKort (motiv) {
-            let kort = document.createElement("div")
-            kort.textContent = motiv
-
-            return kort
-        }
-
-        for (let index = 0; index < allaKort.length; index++) {
-            let htmlKort = skapaHtmlelementAvKort(allaKort[index])
-            console.log('htmlKort', htmlKort)
-            htmlKort.addEventListener("click", handleCardClick)
-            allaHtmlKort.push(htmlKort)
-        }
-
-        console.log('allaHtmlKort', allaHtmlKort)
-        for (let index = 0; index < allaHtmlKort.length; index++) {
-            document.getElementById("martin-body").appendChild(allaHtmlKort[index])
-        }
-    }
-
-    getLukeSkywalker ()
+        getLukeSkywalker()
     </script>
 </body>
+
 </html>
